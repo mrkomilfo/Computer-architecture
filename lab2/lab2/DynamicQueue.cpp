@@ -6,23 +6,18 @@ void DynamicQueue::push(uint8_t val) {
 }
 
 bool DynamicQueue::pop(uint8_t &val) {
-	lock_guard<mutex> lock(mtx);
-	bool result = false;
-	if (!queue.empty()) {
-		val = queue.front();
-		queue.pop();
-		result = true;
-	}
-	else
-	{
+	mtx.lock();
+	if (queue.empty()) {
+		mtx.unlock();
 		this_thread::sleep_for(chrono::milliseconds(1));
-		{
-			if (!queue.empty()) {
-				val = queue.front();
-				queue.pop();
-				result = true;
-			}
+		mtx.lock();
+		if (queue.empty()) {
+			mtx.unlock();
+			return false;
 		}
 	}
-	return result;
+	val = queue.front();
+	queue.pop();
+	mtx.unlock();
+	return true;
 }

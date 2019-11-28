@@ -11,7 +11,7 @@ int main()
 	bool again = true;
 	while (again) 
 	{
-		cout << "1 - task 1\n2 - task 2.1\n3 - task 2.2\n4 - task 2.3\n5 - task 2.4\nother - exit\n\n";
+		cout << "1 - task 1\n2 - task 2.1\n3 - task 2.2\n4 - task 2.3\nother - exit\n\n";
 		task = _getch();
 		switch (task) 
 		{
@@ -26,9 +26,6 @@ int main()
 				break;
 			case '4':
 				runFixedAtomicQueue();
-				break;
-			case '5':
-				//run_lock_free_queue<uint8_t>();
 				break;
 			default:
 				again = false;
