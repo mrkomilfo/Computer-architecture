@@ -11,7 +11,8 @@ bool DynamicQueue::pop(uint8_t &val) {
 		mtx.unlock();
 		this_thread::sleep_for(chrono::milliseconds(1));
 		mtx.lock();
-		if (queue.empty()) {
+		if (queue.empty()) 
+		{
 			mtx.unlock();
 			return false;
 		}
